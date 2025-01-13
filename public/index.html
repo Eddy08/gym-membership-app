@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Membership Management</title>
+</head>
+
+<body>
+    <h1>Gym Membership Management System</h1>
+    <div>
+        <h2>Register Membership</h2>
+        <form id="registerForm"> <input type="text" id="name" placeholder="Name" required> <input type="email"
+                id="email" placeholder="Email" required> <input type="date" id="startDate" required> <button
+                type="submit">Register</button> </form>
+    </div>
+    <div>
+        <h2>View Membership Details</h2>
+        <form id="viewForm"> <input type="email" id="viewEmail" placeholder="Email" required> <button
+                type="submit">View</button> </form>
+        <div id="memberDetails"></div>
+    </div>
+    <div>
+        <h2>View All Active Members</h2> <button id="viewAll">View All</button>
+        <div id="allMembers"></div>
+    </div>
+    <div>
+        <h2>Cancel Membership</h2>
+        <form id="cancelForm"> <input type="email" id="cancelEmail" placeholder="Email" required> <button
+                type="submit">Cancel</button> </form>
+    </div>
+    <div>
+        <h2>Modify Membership Start Date</h2>
+        <form id="modifyForm"> <input type="email" id="modifyEmail" placeholder="Email" required> <input type="date"
+                id="newStartDate" required> <button type="submit">Modify</button> </form>
+    </div>
+    <script> document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const name = document.getElementById('name').value
+            const email = document.getElementById('email').value
+            const startDate = document.getElementById('startDate').value
+            const response = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, startDate }), })
+            const data = await response.json()
+            alert(data.message)
+        })
+        document.getElementById('viewForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const email = document.getElementById('viewEmail').value
+            const response = await fetch(`/api/member?email=${email}`)
+            const data = await response.json()
+            document.getElementById('memberDetails').innerText = JSON.stringify(data)
+        })
+        document.getElementById('viewAll').addEventListener('click', async () => {
+            const response = await fetch('/api/members')
+            const data = await response.json()
+            document.getElementById('allMembers').innerText = JSON.stringify(data)
+
+        })
+        document.getElementById('cancelForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const email = document.getElementById('cancelEmail').value
+            const response = await fetch('/api/cancel', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }), })
+            const data = await response.json()
+            alert(data.message)
+        })
+        document.getElementById('modifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const email = document.getElementById('modifyEmail').value
+            const newStartDate = document.getElementById('newStartDate').value
+            const response = await fetch('/api/modify', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, newStartDate }), })
+            const data = await response.json()
+            alert(data.message)
+        })
+    </script>
+</body>
+
+</html>
