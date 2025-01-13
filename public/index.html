@@ -40,19 +40,19 @@
             const name = document.getElementById('name').value
             const email = document.getElementById('email').value
             const startDate = document.getElementById('startDate').value
-            const response = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, startDate }), })
+            const response = await fetch('/gym-membership-app/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, startDate }), })
             const data = await response.json()
             alert(data.message)
         })
         document.getElementById('viewForm').addEventListener('submit', async (e) => {
             e.preventDefault()
             const email = document.getElementById('viewEmail').value
-            const response = await fetch(`/api/member?email=${email}`)
+            const response = await fetch(`/gym-membership-app/api/member?email=${email}`)
             const data = await response.json()
             document.getElementById('memberDetails').innerText = JSON.stringify(data)
         })
         document.getElementById('viewAll').addEventListener('click', async () => {
-            const response = await fetch('/api/members')
+            const response = await fetch('/gym-membership-app/api/members')
             const data = await response.json()
             document.getElementById('allMembers').innerText = JSON.stringify(data)
 
@@ -60,7 +60,7 @@
         document.getElementById('cancelForm').addEventListener('submit', async (e) => {
             e.preventDefault()
             const email = document.getElementById('cancelEmail').value
-            const response = await fetch('/api/cancel', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }), })
+            const response = await fetch('/gym-membership-app/api/cancel', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }), })
             const data = await response.json()
             alert(data.message)
         })
@@ -68,7 +68,7 @@
             e.preventDefault()
             const email = document.getElementById('modifyEmail').value
             const newStartDate = document.getElementById('newStartDate').value
-            const response = await fetch('/api/modify', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, newStartDate }), })
+            const response = await fetch('/gym-membership-app/api/modify', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, newStartDate }), })
             const data = await response.json()
             alert(data.message)
         })

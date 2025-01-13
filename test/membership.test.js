@@ -8,7 +8,7 @@ app.use("/api", membershipRoutes);
 describe("Gym Membership Management System", () => {
   it("should register a new member", (done) => {
     request(app)
-      .post("/api/register")
+      .post("/gym-membership-app/api/register")
       .send({
         name: "John Doe",
         email: "john@example.com",
@@ -22,7 +22,7 @@ describe("Gym Membership Management System", () => {
   });
   it("should retrieve membership details", (done) => {
     request(app)
-      .get("/api/member")
+      .get("/gym-membership-app/api/member")
       .query({ email: "john@example.com" })
       .expect(200)
       .expect((res) => {
@@ -33,7 +33,7 @@ describe("Gym Membership Management System", () => {
   });
   it("should return all active members", (done) => {
     request(app)
-      .get("/api/members")
+      .get("/gym-membership-app/api/members")
       .expect(200)
       .expect((res) => {
         if (!Array.isArray(res.body))
@@ -43,7 +43,7 @@ describe("Gym Membership Management System", () => {
   });
   it("should cancel a membership", (done) => {
     request(app)
-      .delete("/api/cancel")
+      .delete("/gym-membership-app/api/cancel")
       .send({ email: "john@example.com" })
       .expect(200)
       .expect((res) => {
@@ -54,7 +54,7 @@ describe("Gym Membership Management System", () => {
   });
   it("should modify membership start date", (done) => {
     request(app)
-      .put("/api/modify")
+      .put("/gym-membership-app/api/modify")
       .send({ email: "john@example.com", newStartDate: "2023-11-01" })
       .expect(200)
       .expect((res) => {
