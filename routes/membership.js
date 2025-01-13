@@ -6,8 +6,16 @@ let members = [];
 router.post("/register", (req, res) => {
   const { name, email, startDate } = req.body;
   const newMember = new Member(name, email, startDate);
-  members.push(newMember);
-  res.json({ message: "Membership registered", member: newMember });
+  if (members && !members.find((m) => m.email === email)) {
+    members.push(newMember);
+    res.json({ message: "Membership registered", member: newMember });
+  } else {
+    res.status(404).json({
+      message:
+        "Member with email already exists : " +
+        JSON.stringify(members.find((m) => m.email === email)),
+    });
+  }
 });
 // // View Membership Details
 router.get("/member", (req, res) => {
