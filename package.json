@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "c8 npm test",
+    "cov-report": "c8 report --reporter=html"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
