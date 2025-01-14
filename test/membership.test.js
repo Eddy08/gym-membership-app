@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const membershipRoutes = require("../routes/membership");
 const app = express();
 app.use(bodyParser.json());
-app.use("/api", membershipRoutes);
+app.use("/gym-membership-app/api", membershipRoutes);
 describe("Gym Membership Management System", () => {
   it("should register a new member", (done) => {
     request(app)
