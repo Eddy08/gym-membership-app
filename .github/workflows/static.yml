@@ -39,13 +39,12 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm ci
-          npm start
         env:
           CI: true
       - name: npm test coverage
-        run: npm coverage
+        run: npm start | npm coverage 
       - name: npm for generating coverage repository
-        run: npm cov-report
+        run: npm start | npm cov-report
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
