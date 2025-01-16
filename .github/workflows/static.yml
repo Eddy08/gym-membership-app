@@ -42,9 +42,9 @@ jobs:
         env:
           CI: true
       - name: npm test coverage
-        run: npm start | npm run coverage 
+        run: npm start | npm run coverage | pkill -2 Runner.Listener 
       - name: npm for generating coverage repository
-        run: npm start | npm run cov-report
+        run: npm start | npm run cov-report |  pkill -2 Runner.Listener
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
